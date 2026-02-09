@@ -25,7 +25,7 @@ function AuditCaseList({ cases, onSelectCase, onUpdateCase, onDeleteCase, select
     return (
       <div className="empty-state">
         <h2>No Audit Cases Yet</h2>
-        <p>Click "New Case" to create your first audit case.</p>
+        <p>Click &ldquo;New Case&rdquo; to create your first audit case.</p>
       </div>
     );
   }
