@@ -1,0 +1,87 @@
+.forensic-audit-app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  color: white;
+}
+
+.app-header h1 {
+  margin-bottom: 0.5rem;
+  font-size: 2.5rem;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.app-nav {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.app-nav button {
+  flex: 1;
+  min-width: 150px;
+  padding: 1rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  background: #f5f5f5;
+  color: #333;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.app-nav button:hover {
+  background: #e0e0e0;
+  transform: translateY(-2px);
+}
+
+.app-nav button.active {
+  background: #667eea;
+  color: white;
+  border-color: #764ba2;
+}
+
+.app-main {
+  flex: 1;
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.app-footer {
+  margin-top: 2rem;
+  text-align: center;
+  padding: 1rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .app-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .app-nav {
+    flex-direction: column;
+  }
+  
+  .app-nav button {
+    width: 100%;
+  }
+}

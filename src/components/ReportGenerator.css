@@ -1,0 +1,169 @@
+.report-generator {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.report-generator h2 {
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+.stats-section {
+  margin-bottom: 2rem;
+}
+
+.stats-section h3 {
+  margin-bottom: 1rem;
+  color: #555;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+}
+
+.stat-card {
+  background: #f9f9f9;
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+  border: 2px solid #e0e0e0;
+}
+
+.stat-card.open {
+  background: #e8f5e9;
+  border-color: #4caf50;
+}
+
+.stat-card.closed {
+  background: #f5f5f5;
+  border-color: #9e9e9e;
+}
+
+.stat-card.critical {
+  background: #f3e5f5;
+  border-color: #9c27b0;
+}
+
+.stat-card.high {
+  background: #ffebee;
+  border-color: #f44336;
+}
+
+.stat-card.medium {
+  background: #fff3e0;
+  border-color: #ff9800;
+}
+
+.stat-card.low {
+  background: #e8f5e9;
+  border-color: #4caf50;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.stat-label {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.report-options {
+  background: #f9f9f9;
+  padding: 2rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.report-options h3 {
+  margin-bottom: 1.5rem;
+  color: #555;
+}
+
+.option-group {
+  margin-bottom: 1.5rem;
+}
+
+.option-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #555;
+}
+
+.option-group select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
+.option-group.checkbox label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+.option-group.checkbox input {
+  width: auto;
+  cursor: pointer;
+}
+
+.report-preview {
+  background: #f0f4ff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 2px solid #667eea;
+  margin-bottom: 2rem;
+}
+
+.report-preview h3 {
+  margin-bottom: 1rem;
+  color: #667eea;
+}
+
+.report-preview p {
+  color: #555;
+  line-height: 1.6;
+}
+
+.report-actions {
+  text-align: center;
+}
+
+.btn-generate {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-generate:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(102, 126, 234, 0.4);
+}
+
+.btn-generate:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.empty-message {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+  font-style: italic;
+}
