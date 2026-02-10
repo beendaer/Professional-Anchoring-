@@ -31,27 +31,16 @@
   ],
  
   "research_references": [
- 
     {
- 
       "name": "Truthprojectout",
- 
       "url": "https://github.com/Default-Directory/Truthprojectout",
- 
       "notes": "Working code matchings reference."
- 
     },
- 
     {
- 
       "name": "reimagined-carnival",
- 
       "url": "https://github.com/beendaer/reimagined-carnival",
- 
       "notes": "Main branch deception detection enhancements."
- 
     }
- 
   ],
 
   "author": "Justin / Forensic Unit",
