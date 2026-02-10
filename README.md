@@ -30,7 +30,7 @@
 
   ],
  
-  "research_references": [
+  "researchReferences": [
     {
       "name": "Truthprojectout",
       "url": "https://github.com/Default-Directory/Truthprojectout",
