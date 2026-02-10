@@ -4,6 +4,20 @@ import AuditCaseList from './components/AuditCaseList';
 import ReportGenerator from './components/ReportGenerator';
 import './App.css';
 
+const generateCaseId = () => {
+  if (typeof crypto !== 'undefined') {
+    if (crypto.randomUUID) {
+      return crypto.randomUUID();
+    }
+    if (crypto.getRandomValues) {
+      const bytes = new Uint32Array(4);
+      crypto.getRandomValues(bytes);
+      return Array.from(bytes, byte => byte.toString(16).padStart(8, '0')).join('-');
+    }
+  }
+  return `case-${Date.now()}-${Math.random().toString(16).slice(2, 10)}`;
+};
+
 function ForensicAuditApp() {
   const [auditCases, setAuditCases] = useState([]);
   const [selectedCase, setSelectedCase] = useState(null);
@@ -12,7 +26,7 @@ function ForensicAuditApp() {
   const addAuditCase = (newCase) => {
     const caseWithId = {
       ...newCase,
-      id: Date.now(),
+      id: generateCaseId(),
       createdAt: new Date().toISOString(),
       status: 'open'
     };
