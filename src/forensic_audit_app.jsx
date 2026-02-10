@@ -4,6 +4,30 @@ import AuditCaseList from './components/AuditCaseList';
 import ReportGenerator from './components/ReportGenerator';
 import './App.css';
 
+const generateCaseId = () => {
+  if (typeof crypto === 'undefined') {
+    throw new Error('Crypto API is not available in this environment.');
+  }
+  if (crypto.randomUUID) {
+    return crypto.randomUUID();
+  }
+  if (!crypto.getRandomValues) {
+    throw new Error('crypto.getRandomValues is not supported in this environment.');
+  }
+  const bytes = new Uint8Array(16);
+  crypto.getRandomValues(bytes);
+  bytes[6] = (bytes[6] & 0x0f) | 0x40;
+  bytes[8] = (bytes[8] & 0x3f) | 0x80;
+  const hexBytes = Array.from(bytes, byte => byte.toString(16).padStart(2, '0'));
+  return [
+    hexBytes.slice(0, 4).join(''),
+    hexBytes.slice(4, 6).join(''),
+    hexBytes.slice(6, 8).join(''),
+    hexBytes.slice(8, 10).join(''),
+    hexBytes.slice(10, 16).join('')
+  ].join('-');
+};
+
 function ForensicAuditApp() {
   const [auditCases, setAuditCases] = useState([]);
   const [selectedCase, setSelectedCase] = useState(null);
@@ -12,7 +36,7 @@ function ForensicAuditApp() {
   const addAuditCase = (newCase) => {
     const caseWithId = {
       ...newCase,
-      id: Date.now(),
+      id: generateCaseId(),
       createdAt: new Date().toISOString(),
       status: 'open'
     };

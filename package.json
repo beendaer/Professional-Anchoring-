@@ -2,12 +2,8 @@
   "name": "forensic-deception-detector",
   "version": "2.0.8",
   "description": "Monolithic tool for documenting retail hardware mismatches and AI deception patterns.",
-  "main": "forensic_audit_app.jsx",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/[your-username]/forensic-deception-detector.git"
-  "type": "module",
   "main": "dist/index.js",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -37,8 +33,6 @@
       "notes": "Main branch deception detection enhancements."
     }
   ],
-  "author": "Justin / Forensic Unit",
-  "license": "MIT"
   "author": "Justin / Forensic Unit",
   "license": "MIT",
   "dependencies": {
