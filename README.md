@@ -44,6 +44,20 @@ npm run preview
 4. Document hardware mismatches or deception patterns
 5. Generate reports for your findings
 
+  ],
+ 
+  "researchReferences": [
+    {
+      "name": "Truthprojectout",
+      "url": "https://github.com/Default-Directory/Truthprojectout",
+      "notes": "Working code matchings reference."
+    },
+    {
+      "name": "reimagined-carnival",
+      "url": "https://github.com/beendaer/reimagined-carnival",
+      "notes": "Main branch deception detection enhancements."
+    }
+  ],
 ## Project Structure
 
 ```
