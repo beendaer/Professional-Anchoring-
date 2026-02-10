@@ -25,7 +25,7 @@ function AuditCaseList({ cases, onSelectCase, onUpdateCase, onDeleteCase, select
     return (
       <div className="empty-state">
         <h2>No Failure Logs Yet</h2>
-        <p>Click &ldquo;Forensic Unit&rdquo; to create your first entry.</p>
+        <p>Click “Forensic Unit” to create your first entry.</p>
       </div>
     );
   }
