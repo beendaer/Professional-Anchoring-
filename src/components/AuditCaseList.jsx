@@ -3,8 +3,8 @@ import './AuditCaseList.css';
 function AuditCaseList({ cases, onSelectCase, onUpdateCase, onDeleteCase, selectedCase }) {
   const getCaseTypeLabel = (type) => {
     const labels = {
-      'hardware-mismatch': '🖥️ Hardware Mismatch',
-      'ai-deception': '🤖 AI Deception',
+      'hardware-mismatch': '🖥️ Hardware Lifecycle Mismatch',
+      'ai-deception': '🤖 Algorithmic Deception',
       'false-advertising': '📢 False Advertising',
       'spec-fraud': '⚠️ Spec Fraud',
       'other': '📌 Other'
@@ -24,15 +24,15 @@ function AuditCaseList({ cases, onSelectCase, onUpdateCase, onDeleteCase, select
   if (cases.length === 0) {
     return (
       <div className="empty-state">
-        <h2>No Audit Cases Yet</h2>
-        <p>Click &ldquo;New Case&rdquo; to create your first audit case.</p>
+        <h2>No Failure Logs Yet</h2>
+        <p>Click &ldquo;Forensic Unit&rdquo; to create your first entry.</p>
       </div>
     );
   }
 
   return (
     <div className="audit-case-list">
-      <h2>Audit Cases ({cases.length})</h2>
+      <h2>Structural Failure Log ({cases.length})</h2>
       
       <div className="cases-grid">
         {cases.map((caseItem) => (
@@ -147,10 +147,40 @@ function AuditCaseList({ cases, onSelectCase, onUpdateCase, onDeleteCase, select
                 <p>{selectedCase.actualSpecs}</p>
               </div>
             )}
+            {selectedCase.failureTimeline && (
+              <div className="detail-item full-width">
+                <strong>Structural Failure Timeline:</strong>
+                <p>{selectedCase.failureTimeline}</p>
+              </div>
+            )}
+            {selectedCase.aclSections?.length > 0 && (
+              <div className="detail-item full-width">
+                <strong>ACL Statutory Mapping:</strong>
+                <p>Sections {selectedCase.aclSections.join(', ')}</p>
+              </div>
+            )}
             {selectedCase.evidence && (
               <div className="detail-item full-width">
                 <strong>Evidence:</strong>
                 <p>{selectedCase.evidence}</p>
+              </div>
+            )}
+            {selectedCase.aiResponse && (
+              <div className="detail-item full-width">
+                <strong>AI Response:</strong>
+                <p>{selectedCase.aiResponse}</p>
+              </div>
+            )}
+            {selectedCase.deceptionPattern && selectedCase.deceptionPattern !== 'none' && (
+              <div className="detail-item">
+                <strong>Deception Pattern:</strong>
+                <p>{selectedCase.deceptionPattern.replace(/-/g, ' ')}</p>
+              </div>
+            )}
+            {selectedCase.intentionality && (
+              <div className="detail-item">
+                <strong>Intentionality:</strong>
+                <p>{selectedCase.intentionality.replace(/-/g, ' ')}</p>
               </div>
             )}
             {selectedCase.notes && (

@@ -60,8 +60,8 @@ function ForensicAuditApp() {
   return (
     <div className="forensic-audit-app">
       <header className="app-header">
-        <h1>🔍 Forensic Deception Detector</h1>
-        <p className="subtitle">Professional Tool for Hardware Mismatch & AI Deception Documentation</p>
+        <h1>🔍 Forensic Audit & Deception Detection Toolkit (FADDT)</h1>
+        <p className="subtitle">Audit Toolkit for Hardware Lifecycle Mismatch & Algorithmic Deception</p>
       </header>
 
       <nav className="app-nav">
@@ -69,19 +69,19 @@ function ForensicAuditApp() {
           className={activeTab === 'list' ? 'active' : ''}
           onClick={() => setActiveTab('list')}
         >
-          📋 Audit Cases ({auditCases.length})
+          📋 Structural Failure Log ({auditCases.length})
         </button>
         <button 
           className={activeTab === 'new' ? 'active' : ''}
           onClick={() => setActiveTab('new')}
         >
-          ➕ New Case
+          🧭 Forensic Unit
         </button>
         <button 
           className={activeTab === 'report' ? 'active' : ''}
           onClick={() => setActiveTab('report')}
         >
-          📊 Generate Report
+          📊 Statutory Report
         </button>
       </nav>
 
@@ -106,7 +106,7 @@ function ForensicAuditApp() {
       </main>
 
       <footer className="app-footer">
-        <p>Forensic Deception Detector v2.0.8 | MIT License | Justin / Forensic Unit</p>
+        <p>FADDT v2.0.8 | MIT License | Justin / Forensic Unit</p>
       </footer>
     </div>
   );

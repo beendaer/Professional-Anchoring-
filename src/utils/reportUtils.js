@@ -3,7 +3,7 @@ export function generateTextReport(cases) {
   let report = '';
   
   report += '='.repeat(80) + '\n';
-  report += 'FORENSIC DECEPTION DETECTOR - AUDIT REPORT\n';
+  report += 'FORENSIC AUDIT & DECEPTION DETECTION TOOLKIT (FADDT) - AUDIT REPORT\n';
   report += '='.repeat(80) + '\n';
   report += `Generated: ${timestamp}\n`;
   report += `Total Cases: ${cases.length}\n`;
@@ -35,9 +35,29 @@ export function generateTextReport(cases) {
     if (caseItem.actualSpecs) {
       report += `\nActual Specifications:\n${caseItem.actualSpecs}\n`;
     }
+
+    if (caseItem.failureTimeline) {
+      report += `\nStructural Failure Timeline:\n${caseItem.failureTimeline}\n`;
+    }
+
+    if (caseItem.aclSections?.length) {
+      report += `\nACL Statutory Mapping:\nSections ${caseItem.aclSections.join(', ')}\n`;
+    }
     
     if (caseItem.evidence) {
       report += `\nEvidence:\n${caseItem.evidence}\n`;
+    }
+
+    if (caseItem.aiResponse) {
+      report += `\nAI Response:\n${caseItem.aiResponse}\n`;
+    }
+
+    if (caseItem.deceptionPattern && caseItem.deceptionPattern !== 'none') {
+      report += `\nDeception Pattern:\n${caseItem.deceptionPattern.replace(/-/g, ' ')}\n`;
+    }
+
+    if (caseItem.intentionality) {
+      report += `\nIntentionality Assessment:\n${caseItem.intentionality.replace(/-/g, ' ')}\n`;
     }
     
     if (caseItem.notes) {
@@ -59,7 +79,7 @@ export function generateJSONReport(cases) {
     generatedAt: new Date().toISOString(),
     totalCases: cases.length,
     version: '2.0.8',
-    tool: 'Forensic Deception Detector',
+    tool: 'Forensic Audit & Deception Detection Toolkit (FADDT)',
     cases: cases.map(c => ({
       id: c.id,
       title: c.title,
@@ -72,7 +92,12 @@ export function generateJSONReport(cases) {
       description: c.description,
       expectedSpecs: c.expectedSpecs || null,
       actualSpecs: c.actualSpecs || null,
+      failureTimeline: c.failureTimeline || null,
+      aclSections: c.aclSections || [],
       evidence: c.evidence || null,
+      aiResponse: c.aiResponse || null,
+      deceptionPattern: c.deceptionPattern || null,
+      intentionality: c.intentionality || null,
       notes: c.notes || null
     }))
   };
@@ -93,7 +118,12 @@ export function generateCSVReport(cases) {
     'Description',
     'Expected Specs',
     'Actual Specs',
+    'Failure Timeline',
+    'ACL Sections',
     'Evidence',
+    'AI Response',
+    'Deception Pattern',
+    'Intentionality',
     'Notes'
   ];
 
@@ -112,7 +142,12 @@ export function generateCSVReport(cases) {
       escapeCSV(c.description),
       escapeCSV(c.expectedSpecs || ''),
       escapeCSV(c.actualSpecs || ''),
+      escapeCSV(c.failureTimeline || ''),
+      escapeCSV(Array.isArray(c.aclSections) ? c.aclSections.join(' | ') : ''),
       escapeCSV(c.evidence || ''),
+      escapeCSV(c.aiResponse || ''),
+      escapeCSV(c.deceptionPattern || ''),
+      escapeCSV(c.intentionality || ''),
       escapeCSV(c.notes || '')
     ];
     csv += row.join(',') + '\n';

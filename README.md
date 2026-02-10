@@ -1,24 +1,30 @@
-# Forensic Deception Detector
+# Forensic Audit & Deception Detection Toolkit (FADDT)
 
-A professional tool for documenting retail hardware mismatches and AI deception patterns.
+A monolithic React-based forensic tool for documenting hardware lifecycle mismatches and algorithmic deception patterns.
 
 ## Overview
 
-The Forensic Deception Detector is a monolithic React-based application designed to help consumers and forensic auditors document and track instances of hardware fraud, retail mismatches, and AI-driven deception patterns. This tool provides a comprehensive interface for recording, analyzing, and reporting potential deception cases.
+The Forensic Audit & Deception Detection Toolkit (FADDT) is designed to help consumers and forensic auditors record, analyze, and report structural failures across two primary domains:
 
-## Features
+- **Hardware Lifecycle Mismatch**: Track supply chain errors where legacy hardware is substituted for high-performance intent.
+- **Algorithmic Deception**: Audit LLM responses for "Facade of Competence," "Stochastic Parroting," and "Safety Hedging" patterns.
 
-- **Hardware Mismatch Documentation**: Record and track hardware specification discrepancies
-- **AI Deception Pattern Analysis**: Document and analyze AI-driven deceptive practices
-- **Audit Trail Management**: Maintain detailed records of forensic findings
-- **Report Generation**: Export findings in various formats
-- **Case Management**: Organize and track multiple audit cases
+## Core Features
 
-## Technology Stack
+- **Structural Failure Logging**: Capture high-fidelity timelines for persistent service gaps (e.g., 8-hour failure loops).
+- **ACL Statutory Mapping**: Link discrepancies directly to Australian Consumer Law sections 54, 56, and 18.
+- **Deception Scanner**: UI-driven audit fields to document deceptive patterns and intentionality.
+- **Report Export**: Generate statutory-ready reports for regulators and internal review.
 
-- **React 18**: Modern UI framework
-- **Vite**: Fast build tool and development server
-- **ESLint**: Code quality and consistency
+## Technical Architecture
+
+- **React 18 (JSX)** with a state-driven audit matrix
+- **Vite** for build and development
+- **CSS-based styling** optimized for clarity and evidentiary export
+
+## Evidentiary Use Case
+
+This toolkit supports evidence chains for submissions to regulatory bodies such as SA Consumer and Business Services (CBS) and the ACCC, with a specific evidentiary target of Adelaide 2026.
 
 ## Installation
 
@@ -38,26 +44,11 @@ npm run preview
 
 ## Usage
 
-1. Launch the application using `npm run dev`
-2. Navigate to the displayed local URL (typically http://localhost:5173)
-3. Create a new audit case
-4. Document hardware mismatches or deception patterns
-5. Generate reports for your findings
+1. Launch the application using `npm run dev`.
+2. Use the **Forensic Unit** tab to input transaction history, failure timelines, ACL mapping, and deception scanner details.
+3. Review entries in the **Structural Failure Log** to maintain a continuous audit trail.
+4. Export findings from the **Statutory Report** tab for regulatory reporting.
 
-  ],
- 
-  "researchReferences": [
-    {
-      "name": "Truthprojectout",
-      "url": "https://github.com/Default-Directory/Truthprojectout",
-      "notes": "Working code matchings reference."
-    },
-    {
-      "name": "reimagined-carnival",
-      "url": "https://github.com/beendaer/reimagined-carnival",
-      "notes": "Main branch deception detection enhancements."
-    }
-  ],
 ## Project Structure
 
 ```
@@ -95,6 +86,6 @@ Justin / Forensic Unit
 
 - Forensics
 - Consumer Protection
-- ACL (Access Control List)
+- ACL (Australian Consumer Law)
 - AI Audit
 - Deception Detection
