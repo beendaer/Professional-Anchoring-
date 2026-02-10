@@ -5,17 +5,18 @@ import ReportGenerator from './components/ReportGenerator';
 import './App.css';
 
 const generateCaseId = () => {
-  if (typeof crypto !== 'undefined') {
-    if (crypto.randomUUID) {
-      return crypto.randomUUID();
-    }
-    if (crypto.getRandomValues) {
-      const bytes = new Uint32Array(4);
-      crypto.getRandomValues(bytes);
-      return Array.from(bytes, byte => byte.toString(16).padStart(8, '0')).join('-');
-    }
+  if (typeof crypto === 'undefined') {
+    throw new Error('Secure random generator unavailable in this environment.');
   }
-  return `case-${Date.now()}-${Math.random().toString(16).slice(2, 10)}`;
+  if (crypto.randomUUID) {
+    return crypto.randomUUID();
+  }
+  if (!crypto.getRandomValues) {
+    throw new Error('Secure random generator unavailable in this environment.');
+  }
+  const bytes = new Uint32Array(4);
+  crypto.getRandomValues(bytes);
+  return Array.from(bytes, byte => byte.toString(16).padStart(8, '0')).join('-');
 };
 
 function ForensicAuditApp() {
