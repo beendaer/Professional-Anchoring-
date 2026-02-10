@@ -10,7 +10,12 @@ function AuditCaseForm({ onSubmit }) {
     retailer: '',
     expectedSpecs: '',
     actualSpecs: '',
+    failureTimeline: '',
+    aclSections: [],
     evidence: '',
+    aiResponse: '',
+    deceptionPattern: 'none',
+    intentionality: 'undetermined',
     severity: 'medium',
     notes: ''
   });
@@ -21,6 +26,18 @@ function AuditCaseForm({ onSubmit }) {
       ...prev,
       [name]: value
     }));
+  };
+
+  const handleAclToggle = (section) => {
+    setFormData(prev => {
+      const nextSections = prev.aclSections.includes(section)
+        ? prev.aclSections.filter(item => item !== section)
+        : [...prev.aclSections, section];
+      return {
+        ...prev,
+        aclSections: nextSections
+      };
+    });
   };
 
   const handleSubmit = (e) => {
@@ -38,7 +55,12 @@ function AuditCaseForm({ onSubmit }) {
       retailer: '',
       expectedSpecs: '',
       actualSpecs: '',
+      failureTimeline: '',
+      aclSections: [],
       evidence: '',
+      aiResponse: '',
+      deceptionPattern: 'none',
+      intentionality: 'undetermined',
       severity: 'medium',
       notes: ''
     });
@@ -46,7 +68,7 @@ function AuditCaseForm({ onSubmit }) {
 
   return (
     <div className="audit-case-form">
-      <h2>Create New Audit Case</h2>
+      <h2>Forensic Unit Intake</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="title">Case Title *</label>
@@ -69,8 +91,8 @@ function AuditCaseForm({ onSubmit }) {
             value={formData.caseType}
             onChange={handleChange}
           >
-            <option value="hardware-mismatch">Hardware Mismatch</option>
-            <option value="ai-deception">AI Deception Pattern</option>
+            <option value="hardware-mismatch">Hardware Lifecycle Mismatch</option>
+            <option value="ai-deception">Algorithmic Deception</option>
             <option value="false-advertising">False Advertising</option>
             <option value="spec-fraud">Specification Fraud</option>
             <option value="other">Other</option>
@@ -154,6 +176,48 @@ function AuditCaseForm({ onSubmit }) {
         </div>
 
         <div className="form-group">
+          <label htmlFor="failureTimeline">Structural Failure Timeline</label>
+          <textarea
+            id="failureTimeline"
+            name="failureTimeline"
+            value={formData.failureTimeline}
+            onChange={handleChange}
+            rows="3"
+            placeholder="Document outage windows, duration, and recurrence (e.g., 8-hour failure loop)"
+          />
+        </div>
+
+        <div className="form-group">
+          <label>ACL Statutory Mapping</label>
+          <div className="checkbox-group">
+            <label>
+              <input
+                type="checkbox"
+                checked={formData.aclSections.includes('54')}
+                onChange={() => handleAclToggle('54')}
+              />
+              Section 54 (acceptable quality)
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                checked={formData.aclSections.includes('56')}
+                onChange={() => handleAclToggle('56')}
+              />
+              Section 56 (due care and skill)
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                checked={formData.aclSections.includes('18')}
+                onChange={() => handleAclToggle('18')}
+              />
+              Section 18 (misleading/deceptive)
+            </label>
+          </div>
+        </div>
+
+        <div className="form-group">
           <label htmlFor="evidence">Evidence</label>
           <textarea
             id="evidence"
@@ -163,6 +227,50 @@ function AuditCaseForm({ onSubmit }) {
             rows="3"
             placeholder="List evidence: screenshots, receipts, serial numbers, etc."
           />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="aiResponse">AI Response (Deception Scanner Input)</label>
+          <textarea
+            id="aiResponse"
+            name="aiResponse"
+            value={formData.aiResponse}
+            onChange={handleChange}
+            rows="3"
+            placeholder="Paste AI-generated responses to evaluate for deception patterns"
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="deceptionPattern">Deception Pattern</label>
+          <select
+            id="deceptionPattern"
+            name="deceptionPattern"
+            value={formData.deceptionPattern}
+            onChange={handleChange}
+          >
+            <option value="none">Not Assessed</option>
+            <option value="facade-of-competence">Facade of Competence</option>
+            <option value="stochastic-parroting">Stochastic Parroting</option>
+            <option value="safety-hedging">Safety Hedging</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="intentionality">Intentionality Assessment</label>
+          <select
+            id="intentionality"
+            name="intentionality"
+            value={formData.intentionality}
+            onChange={handleChange}
+          >
+            <option value="undetermined">Undetermined</option>
+            <option value="suspected">Suspected Intentional</option>
+            <option value="likely-intentional">Likely Intentional</option>
+            <option value="unintentional">Likely Unintentional</option>
+            <option value="not-applicable">Not Applicable</option>
+          </select>
         </div>
 
         <div className="form-group">

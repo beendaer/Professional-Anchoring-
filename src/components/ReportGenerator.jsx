@@ -36,17 +36,17 @@ function ReportGenerator({ cases }) {
     switch (reportFormat) {
       case 'json':
         reportContent = generateJSONReport(filteredCases);
-        filename = `forensic-audit-report-${Date.now()}.json`;
+        filename = `faddt-report-${Date.now()}.json`;
         mimeType = 'application/json';
         break;
       case 'csv':
         reportContent = generateCSVReport(filteredCases);
-        filename = `forensic-audit-report-${Date.now()}.csv`;
+        filename = `faddt-report-${Date.now()}.csv`;
         mimeType = 'text/csv';
         break;
       default:
         reportContent = generateTextReport(filteredCases);
-        filename = `forensic-audit-report-${Date.now()}.txt`;
+        filename = `faddt-report-${Date.now()}.txt`;
         mimeType = 'text/plain';
     }
 
@@ -73,7 +73,7 @@ function ReportGenerator({ cases }) {
 
   return (
     <div className="report-generator">
-      <h2>Generate Audit Report</h2>
+      <h2>Generate Statutory Report</h2>
 
       <div className="stats-section">
         <h3>Case Statistics</h3>
