@@ -1,9 +1,9 @@
 # Sub-Issue Tracking: reimagined-carnival #88 (Item 5)
 
 ## Parent Issue
-- Repository: https://github.com/beendaer/reimagined-carnival
+- Repository: https://github.com/beendaer/reimagined-carnival (owner: beendaer)
 - Issue: https://github.com/beendaer/reimagined-carnival/issues/88
-- Sub-issue: #5 (tracking for Professional-Anchoring-)
+- Sub-issue: #5 (tracking for the Professional-Anchoring- repository)
 
 ## Summary
 Track any follow-up work needed in this repository once the upstream fix for issue #88 is finalized.
