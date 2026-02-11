@@ -55,7 +55,11 @@ function ReportGenerator({ cases }) {
     link.href = url;
     link.download = filename;
     link.click();
-    window.URL.revokeObjectURL(url);
+    
+    // Delay URL revocation to ensure download completes
+    setTimeout(() => {
+      window.URL.revokeObjectURL(url);
+    }, 100);
   }, [filteredCases, reportFormat]);
 
   const stats = useMemo(() => ({
