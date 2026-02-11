@@ -2,6 +2,9 @@ import { useState, useMemo, useCallback } from 'react';
 import { generateTextReport, generateJSONReport, generateCSVReport } from '../utils/reportUtils';
 import './ReportGenerator.css';
 
+// Delay before revoking blob URL to ensure browser has time to start download
+const URL_REVOCATION_DELAY_MS = 100;
+
 function ReportGenerator({ cases }) {
   const [reportFormat, setReportFormat] = useState('text');
   const [includeClosedCases, setIncludeClosedCases] = useState(true);
@@ -55,7 +58,11 @@ function ReportGenerator({ cases }) {
     link.href = url;
     link.download = filename;
     link.click();
-    window.URL.revokeObjectURL(url);
+    
+    // Delay URL revocation to ensure download completes
+    setTimeout(() => {
+      window.URL.revokeObjectURL(url);
+    }, URL_REVOCATION_DELAY_MS);
   }, [filteredCases, reportFormat]);
 
   const stats = useMemo(() => ({
