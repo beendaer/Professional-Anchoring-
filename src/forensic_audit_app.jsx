@@ -23,7 +23,10 @@ const generateCaseId = () => {
       hexBytes.slice(10, 16).join('')
     ].join('-');
   }
-  console.warn('Crypto API unavailable; using non-cryptographic case ID fallback.');
+  if (import.meta.env?.PROD) {
+    throw new Error('Crypto API unavailable. Cannot generate secure case IDs in production.');
+  }
+  console.warn('WARNING: Crypto API unavailable. Generated case IDs are not cryptographically secure and may be predictable.');
   const fallbackTemplate = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx';
   return fallbackTemplate.replace(/[xy]/g, (char) => {
     const rand = Math.floor(Math.random() * 16);
