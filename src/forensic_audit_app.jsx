@@ -23,6 +23,7 @@ const generateCaseId = () => {
       hexBytes.slice(10, 16).join('')
     ].join('-');
   }
+  console.warn('Crypto API unavailable; using non-cryptographic case ID fallback.');
   const fallbackTemplate = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx';
   return fallbackTemplate.replace(/[xy]/g, (char) => {
     const rand = Math.floor(Math.random() * 16);
