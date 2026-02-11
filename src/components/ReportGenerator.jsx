@@ -68,6 +68,18 @@ function ReportGenerator({ cases }) {
     low: cases.filter(c => c.severity === 'low').length,
   }), [cases]);
 
+  const handleReportFormatChange = useCallback((e) => {
+    setReportFormat(e.target.value);
+  }, []);
+
+  const handleSeverityFilterChange = useCallback((e) => {
+    setFilterSeverity(e.target.value);
+  }, []);
+
+  const handleIncludeClosedChange = useCallback((e) => {
+    setIncludeClosedCases(e.target.checked);
+  }, []);
+
   return (
     <div className="report-generator">
       <h2>Generate Statutory Report</h2>
@@ -114,7 +126,7 @@ function ReportGenerator({ cases }) {
           <select
             id="reportFormat"
             value={reportFormat}
-            onChange={useCallback((e) => setReportFormat(e.target.value), [])}
+            onChange={handleReportFormatChange}
           >
             <option value="text">Plain Text</option>
             <option value="json">JSON</option>
@@ -127,7 +139,7 @@ function ReportGenerator({ cases }) {
           <select
             id="filterSeverity"
             value={filterSeverity}
-            onChange={useCallback((e) => setFilterSeverity(e.target.value), [])}
+            onChange={handleSeverityFilterChange}
           >
             <option value="all">All Severities</option>
             <option value="critical">Critical Only</option>
@@ -142,7 +154,7 @@ function ReportGenerator({ cases }) {
             <input
               type="checkbox"
               checked={includeClosedCases}
-              onChange={useCallback((e) => setIncludeClosedCases(e.target.checked), [])}
+              onChange={handleIncludeClosedChange}
             />
             Include Closed Cases
           </label>
