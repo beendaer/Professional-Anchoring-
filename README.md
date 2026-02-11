@@ -82,6 +82,10 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 Justin / Forensic Unit
 
+## Documentation
+
+- [GitHub Copilot SWE Agent Report](COPILOT_AGENT_REPORT.md) - Comprehensive analysis of the autonomous AI coding assistant used in this repository
+
 ## Keywords
 
 - Forensics
