@@ -23,7 +23,12 @@ const generateCaseId = () => {
       hexBytes.slice(10, 16).join('')
     ].join('-');
   }
-  return `case-${Date.now().toString(16)}-${Math.random().toString(16).slice(2, 10)}`;
+  const fallbackTemplate = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx';
+  return fallbackTemplate.replace(/[xy]/g, (char) => {
+    const rand = Math.floor(Math.random() * 16);
+    const value = char === 'x' ? rand : (rand & 0x3) | 0x8;
+    return value.toString(16);
+  });
 };
 
 function ForensicAuditApp() {
