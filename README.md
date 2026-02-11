@@ -13,6 +13,7 @@ The Forensic Audit & Deception Detection Toolkit (FADDT) is designed to help con
 
 - **Structural Failure Logging**: Capture high-fidelity timelines for persistent service gaps (e.g., 8-hour failure loops).
 - **ACL Statutory Mapping**: Link discrepancies directly to Australian Consumer Law sections 54, 56, and 18.
+- **Automated Deception Detection**: Real-time analysis of AI responses to detect "Facade of Competence," "Stochastic Parroting," and "Safety Hedging" patterns with scoring and indicators.
 - **Deception Scanner**: UI-driven audit fields to document deceptive patterns and intentionality.
 - **Report Export**: Generate statutory-ready reports for regulators and internal review.
 
@@ -46,8 +47,15 @@ npm run preview
 
 1. Launch the application using `npm run dev`.
 2. Use the **Forensic Unit** tab to input transaction history, failure timelines, ACL mapping, and deception scanner details.
-3. Review entries in the **Structural Failure Log** to maintain a continuous audit trail.
-4. Export findings from the **Statutory Report** tab for regulatory reporting.
+3. For AI deception detection:
+   - Paste AI responses into the "AI Response" field
+   - Click **🔍 Analyze for Deception Patterns** to get automated analysis
+   - Review the detection score and indicators
+   - The system will auto-populate the deception pattern based on detection results
+4. Review entries in the **Structural Failure Log** to maintain a continuous audit trail.
+5. Export findings from the **Statutory Report** tab for regulatory reporting.
+
+For detailed information on the deception detection feature, see [DECEPTION_DETECTION.md](DECEPTION_DETECTION.md).
 
 ## Project Structure
 

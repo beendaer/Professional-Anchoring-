@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './AuditCaseForm.css';
+import { analyzeDeceptionPatterns } from '../utils/deceptionDetector';
 
 function AuditCaseForm({ onSubmit }) {
   const [formData, setFormData] = useState({
@@ -20,12 +21,32 @@ function AuditCaseForm({ onSubmit }) {
     notes: ''
   });
 
+  const [detectionResults, setDetectionResults] = useState(null);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
       [name]: value
     }));
+  };
+
+  const handleAnalyzeDeception = () => {
+    if (!formData.aiResponse || formData.aiResponse.trim().length === 0) {
+      alert('Please enter an AI response to analyze');
+      return;
+    }
+
+    const results = analyzeDeceptionPatterns(formData.aiResponse, formData.description);
+    setDetectionResults(results);
+
+    // Auto-populate the deception pattern if detected
+    if (results.detected && results.recommendation !== 'none') {
+      setFormData(prev => ({
+        ...prev,
+        deceptionPattern: results.recommendation
+      }));
+    }
   };
 
   const handleAclToggle = (section) => {
@@ -64,6 +85,7 @@ function AuditCaseForm({ onSubmit }) {
       severity: 'medium',
       notes: ''
     });
+    setDetectionResults(null);
   };
 
   return (
@@ -239,7 +261,51 @@ function AuditCaseForm({ onSubmit }) {
             rows="3"
             placeholder="Paste AI-generated responses to evaluate for deception patterns"
           />
+          <button 
+            type="button" 
+            onClick={handleAnalyzeDeception}
+            className="analyze-button"
+            style={{ marginTop: '8px' }}
+          >
+            🔍 Analyze for Deception Patterns
+          </button>
         </div>
+
+        {detectionResults && detectionResults.detected && (
+          <div className="detection-results" style={{
+            padding: '12px',
+            margin: '12px 0',
+            backgroundColor: detectionResults.overallScore >= 75 ? '#fee' : detectionResults.overallScore >= 50 ? '#ffeaa7' : '#e3f2fd',
+            border: '1px solid #ccc',
+            borderRadius: '4px'
+          }}>
+            <h4 style={{ margin: '0 0 8px 0' }}>⚠️ Deception Pattern Detected</h4>
+            <p><strong>Primary Pattern:</strong> {detectionResults.primaryPattern.replace(/-/g, ' ')}</p>
+            <p><strong>Overall Score:</strong> {detectionResults.overallScore}/100</p>
+            {detectionResults.allPatterns[detectionResults.primaryPattern].indicators.length > 0 && (
+              <div>
+                <strong>Indicators:</strong>
+                <ul style={{ margin: '4px 0', paddingLeft: '20px' }}>
+                  {detectionResults.allPatterns[detectionResults.primaryPattern].indicators.map((indicator, idx) => (
+                    <li key={idx}>{indicator}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        )}
+
+        {detectionResults && !detectionResults.detected && (
+          <div className="detection-results" style={{
+            padding: '12px',
+            margin: '12px 0',
+            backgroundColor: '#e8f5e9',
+            border: '1px solid #4caf50',
+            borderRadius: '4px'
+          }}>
+            <p style={{ margin: 0 }}>✓ No significant deception patterns detected</p>
+          </div>
+        )}
 
         <div className="form-group">
           <label htmlFor="deceptionPattern">Deception Pattern</label>
