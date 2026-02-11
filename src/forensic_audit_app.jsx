@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import AuditCaseForm from './components/AuditCaseForm';
 import AuditCaseList from './components/AuditCaseList';
 import ReportGenerator from './components/ReportGenerator';
@@ -33,29 +33,27 @@ function ForensicAuditApp() {
   const [selectedCase, setSelectedCase] = useState(null);
   const [activeTab, setActiveTab] = useState('list');
 
-  const addAuditCase = (newCase) => {
+  const addAuditCase = useCallback((newCase) => {
     const caseWithId = {
       ...newCase,
       id: generateCaseId(),
       createdAt: new Date().toISOString(),
       status: 'open'
     };
-    setAuditCases([...auditCases, caseWithId]);
+    setAuditCases(prev => [...prev, caseWithId]);
     setActiveTab('list');
-  };
+  }, []);
 
-  const updateAuditCase = (id, updates) => {
-    setAuditCases(auditCases.map(c => 
+  const updateAuditCase = useCallback((id, updates) => {
+    setAuditCases(prev => prev.map(c => 
       c.id === id ? { ...c, ...updates } : c
     ));
-  };
+  }, []);
 
-  const deleteAuditCase = (id) => {
-    setAuditCases(auditCases.filter(c => c.id !== id));
-    if (selectedCase?.id === id) {
-      setSelectedCase(null);
-    }
-  };
+  const deleteAuditCase = useCallback((id) => {
+    setAuditCases(prev => prev.filter(c => c.id !== id));
+    setSelectedCase(prev => prev?.id === id ? null : prev);
+  }, []);
 
   return (
     <div className="forensic-audit-app">

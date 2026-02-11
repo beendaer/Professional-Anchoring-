@@ -1,77 +1,90 @@
 export function generateTextReport(cases) {
   const timestamp = new Date().toISOString();
-  let report = '';
+  const reportLines = [];
   
-  report += '='.repeat(80) + '\n';
-  report += 'FORENSIC AUDIT & DECEPTION DETECTION TOOLKIT (FADDT) - AUDIT REPORT\n';
-  report += '='.repeat(80) + '\n';
-  report += `Generated: ${timestamp}\n`;
-  report += `Total Cases: ${cases.length}\n`;
-  report += '='.repeat(80) + '\n\n';
+  reportLines.push('='.repeat(80));
+  reportLines.push('FORENSIC AUDIT & DECEPTION DETECTION TOOLKIT (FADDT) - AUDIT REPORT');
+  reportLines.push('='.repeat(80));
+  reportLines.push(`Generated: ${timestamp}`);
+  reportLines.push(`Total Cases: ${cases.length}`);
+  reportLines.push('='.repeat(80));
+  reportLines.push('');
 
   cases.forEach((caseItem, index) => {
-    report += `\nCASE #${index + 1}\n`;
-    report += '-'.repeat(80) + '\n';
-    report += `Title: ${caseItem.title}\n`;
-    report += `Type: ${caseItem.caseType}\n`;
-    report += `Severity: ${caseItem.severity.toUpperCase()}\n`;
-    report += `Status: ${caseItem.status}\n`;
-    report += `Created: ${new Date(caseItem.createdAt).toLocaleString()}\n`;
+    reportLines.push('');
+    reportLines.push(`CASE #${index + 1}`);
+    reportLines.push('-'.repeat(80));
+    reportLines.push(`Title: ${caseItem.title}`);
+    reportLines.push(`Type: ${caseItem.caseType}`);
+    reportLines.push(`Severity: ${caseItem.severity.toUpperCase()}`);
+    reportLines.push(`Status: ${caseItem.status}`);
+    reportLines.push(`Created: ${new Date(caseItem.createdAt).toLocaleString()}`);
     
     if (caseItem.retailer) {
-      report += `Retailer: ${caseItem.retailer}\n`;
+      reportLines.push(`Retailer: ${caseItem.retailer}`);
     }
     
     if (caseItem.location) {
-      report += `Location: ${caseItem.location}\n`;
+      reportLines.push(`Location: ${caseItem.location}`);
     }
     
-    report += `\nDescription:\n${caseItem.description}\n`;
+    reportLines.push('');
+    reportLines.push(`Description:\n${caseItem.description}`);
     
     if (caseItem.expectedSpecs) {
-      report += `\nExpected Specifications:\n${caseItem.expectedSpecs}\n`;
+      reportLines.push('');
+      reportLines.push(`Expected Specifications:\n${caseItem.expectedSpecs}`);
     }
     
     if (caseItem.actualSpecs) {
-      report += `\nActual Specifications:\n${caseItem.actualSpecs}\n`;
+      reportLines.push('');
+      reportLines.push(`Actual Specifications:\n${caseItem.actualSpecs}`);
     }
 
     if (caseItem.failureTimeline) {
-      report += `\nStructural Failure Timeline:\n${caseItem.failureTimeline}\n`;
+      reportLines.push('');
+      reportLines.push(`Structural Failure Timeline:\n${caseItem.failureTimeline}`);
     }
 
     if (caseItem.aclSections?.length) {
-      report += `\nACL Statutory Mapping:\nSections ${caseItem.aclSections.join(', ')}\n`;
+      reportLines.push('');
+      reportLines.push(`ACL Statutory Mapping:\nSections ${caseItem.aclSections.join(', ')}`);
     }
     
     if (caseItem.evidence) {
-      report += `\nEvidence:\n${caseItem.evidence}\n`;
+      reportLines.push('');
+      reportLines.push(`Evidence:\n${caseItem.evidence}`);
     }
 
     if (caseItem.aiResponse) {
-      report += `\nAI Response:\n${caseItem.aiResponse}\n`;
+      reportLines.push('');
+      reportLines.push(`AI Response:\n${caseItem.aiResponse}`);
     }
 
     if (caseItem.deceptionPattern && caseItem.deceptionPattern !== 'none') {
-      report += `\nDeception Pattern:\n${caseItem.deceptionPattern.replace(/-/g, ' ')}\n`;
+      reportLines.push('');
+      reportLines.push(`Deception Pattern:\n${caseItem.deceptionPattern.replace(/-/g, ' ')}`);
     }
 
     if (caseItem.intentionality) {
-      report += `\nIntentionality Assessment:\n${caseItem.intentionality.replace(/-/g, ' ')}\n`;
+      reportLines.push('');
+      reportLines.push(`Intentionality Assessment:\n${caseItem.intentionality.replace(/-/g, ' ')}`);
     }
     
     if (caseItem.notes) {
-      report += `\nAdditional Notes:\n${caseItem.notes}\n`;
+      reportLines.push('');
+      reportLines.push(`Additional Notes:\n${caseItem.notes}`);
     }
     
-    report += '-'.repeat(80) + '\n';
+    reportLines.push('-'.repeat(80));
   });
 
-  report += '\n' + '='.repeat(80) + '\n';
-  report += 'END OF REPORT\n';
-  report += '='.repeat(80) + '\n';
+  reportLines.push('');
+  reportLines.push('='.repeat(80));
+  reportLines.push('END OF REPORT');
+  reportLines.push('='.repeat(80));
 
-  return report;
+  return reportLines.join('\n');
 }
 
 export function generateJSONReport(cases) {
