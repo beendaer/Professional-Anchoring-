@@ -1,24 +1,26 @@
 import { useState } from 'react';
 import './AuditCaseForm.css';
 
+const DEFAULT_FORM_STATE = {
+  title: '',
+  caseType: 'hardware-mismatch',
+  description: '',
+  location: '',
+  retailer: '',
+  expectedSpecs: '',
+  actualSpecs: '',
+  failureTimeline: '',
+  aclSections: [],
+  evidence: '',
+  aiResponse: '',
+  deceptionPattern: 'none',
+  intentionality: 'undetermined',
+  severity: 'medium',
+  notes: ''
+};
+
 function AuditCaseForm({ onSubmit }) {
-  const [formData, setFormData] = useState({
-    title: '',
-    caseType: 'hardware-mismatch',
-    description: '',
-    location: '',
-    retailer: '',
-    expectedSpecs: '',
-    actualSpecs: '',
-    failureTimeline: '',
-    aclSections: [],
-    evidence: '',
-    aiResponse: '',
-    deceptionPattern: 'none',
-    intentionality: 'undetermined',
-    severity: 'medium',
-    notes: ''
-  });
+  const [formData, setFormData] = useState(DEFAULT_FORM_STATE);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -47,23 +49,7 @@ function AuditCaseForm({ onSubmit }) {
       return;
     }
     onSubmit(formData);
-    setFormData({
-      title: '',
-      caseType: 'hardware-mismatch',
-      description: '',
-      location: '',
-      retailer: '',
-      expectedSpecs: '',
-      actualSpecs: '',
-      failureTimeline: '',
-      aclSections: [],
-      evidence: '',
-      aiResponse: '',
-      deceptionPattern: 'none',
-      intentionality: 'undetermined',
-      severity: 'medium',
-      notes: ''
-    });
+    setFormData(DEFAULT_FORM_STATE);
   };
 
   return (

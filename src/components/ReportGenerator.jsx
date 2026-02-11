@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { generateTextReport, generateJSONReport, generateCSVReport } from '../utils/reportUtils';
 import './ReportGenerator.css';
 
@@ -7,7 +7,7 @@ function ReportGenerator({ cases }) {
   const [includeClosedCases, setIncludeClosedCases] = useState(true);
   const [filterSeverity, setFilterSeverity] = useState('all');
 
-  const getFilteredCases = () => {
+  const filteredCases = useMemo(() => {
     let filtered = cases;
 
     if (!includeClosedCases) {
@@ -19,11 +19,9 @@ function ReportGenerator({ cases }) {
     }
 
     return filtered;
-  };
+  }, [cases, includeClosedCases, filterSeverity]);
 
-  const handleGenerateReport = () => {
-    const filteredCases = getFilteredCases();
-    
+  const handleGenerateReport = useCallback(() => {
     if (filteredCases.length === 0) {
       alert('No cases match the selected filters');
       return;
@@ -58,10 +56,9 @@ function ReportGenerator({ cases }) {
     link.download = filename;
     link.click();
     window.URL.revokeObjectURL(url);
-  };
+  }, [filteredCases, reportFormat]);
 
-  const filteredCases = getFilteredCases();
-  const stats = {
+  const stats = useMemo(() => ({
     total: cases.length,
     open: cases.filter(c => c.status === 'open').length,
     closed: cases.filter(c => c.status === 'closed').length,
@@ -69,7 +66,7 @@ function ReportGenerator({ cases }) {
     high: cases.filter(c => c.severity === 'high').length,
     medium: cases.filter(c => c.severity === 'medium').length,
     low: cases.filter(c => c.severity === 'low').length,
-  };
+  }), [cases]);
 
   return (
     <div className="report-generator">
