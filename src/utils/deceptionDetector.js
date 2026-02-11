@@ -14,7 +14,6 @@
  * - Hedging with "I understand" or "I appreciate" without addressing the issue
  * 
  * @param {string} text - The AI response text to analyze
- * @param {Object} options - Optional configuration
  * @returns {Object} Detection results with score and indicators
  */
 export function detectFacadeOfCompetence(text) {
@@ -150,7 +149,6 @@ export function detectFacadeOfCompetence(text) {
  * - Lack of specific details or actionable information
  * 
  * @param {string} text - The AI response text to analyze
- * @param {string} userInput - Original user input for comparison
  * @returns {Object} Detection results
  */
 export function detectStochasticParroting(text) {
