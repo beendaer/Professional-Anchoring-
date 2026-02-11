@@ -1,31 +1,38 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import AuditCaseForm from './components/AuditCaseForm';
 import AuditCaseList from './components/AuditCaseList';
 import ReportGenerator from './components/ReportGenerator';
 import './App.css';
 
 const generateCaseId = () => {
-  if (typeof crypto === 'undefined') {
-    throw new Error('Crypto API is not available in this environment.');
+  const cryptoApi = globalThis.crypto;
+  if (cryptoApi?.randomUUID) {
+    return cryptoApi.randomUUID();
   }
-  if (crypto.randomUUID) {
-    return crypto.randomUUID();
+  if (cryptoApi?.getRandomValues) {
+    const bytes = new Uint8Array(16);
+    cryptoApi.getRandomValues(bytes);
+    bytes[6] = (bytes[6] & 0x0f) | 0x40;
+    bytes[8] = (bytes[8] & 0x3f) | 0x80;
+    const hexBytes = Array.from(bytes, byte => byte.toString(16).padStart(2, '0'));
+    return [
+      hexBytes.slice(0, 4).join(''),
+      hexBytes.slice(4, 6).join(''),
+      hexBytes.slice(6, 8).join(''),
+      hexBytes.slice(8, 10).join(''),
+      hexBytes.slice(10, 16).join('')
+    ].join('-');
   }
-  if (!crypto.getRandomValues) {
-    throw new Error('crypto.getRandomValues is not supported in this environment.');
+  if (import.meta.env?.PROD) {
+    throw new Error('Crypto API unavailable. Cannot generate secure case IDs in production.');
   }
-  const bytes = new Uint8Array(16);
-  crypto.getRandomValues(bytes);
-  bytes[6] = (bytes[6] & 0x0f) | 0x40;
-  bytes[8] = (bytes[8] & 0x3f) | 0x80;
-  const hexBytes = Array.from(bytes, byte => byte.toString(16).padStart(2, '0'));
-  return [
-    hexBytes.slice(0, 4).join(''),
-    hexBytes.slice(4, 6).join(''),
-    hexBytes.slice(6, 8).join(''),
-    hexBytes.slice(8, 10).join(''),
-    hexBytes.slice(10, 16).join('')
-  ].join('-');
+  console.warn('WARNING: Crypto API unavailable. Generated case IDs are not cryptographically secure and may be predictable.');
+  const fallbackTemplate = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx';
+  return fallbackTemplate.replace(/[xy]/g, (char) => {
+    const rand = Math.floor(Math.random() * 16);
+    const value = char === 'x' ? rand : (rand & 0x3) | 0x8;
+    return value.toString(16);
+  });
 };
 
 function ForensicAuditApp() {
@@ -33,29 +40,27 @@ function ForensicAuditApp() {
   const [selectedCase, setSelectedCase] = useState(null);
   const [activeTab, setActiveTab] = useState('list');
 
-  const addAuditCase = (newCase) => {
+  const addAuditCase = useCallback((newCase) => {
     const caseWithId = {
       ...newCase,
       id: generateCaseId(),
       createdAt: new Date().toISOString(),
       status: 'open'
     };
-    setAuditCases([...auditCases, caseWithId]);
+    setAuditCases(prev => [...prev, caseWithId]);
     setActiveTab('list');
-  };
+  }, []);
 
-  const updateAuditCase = (id, updates) => {
-    setAuditCases(auditCases.map(c => 
+  const updateAuditCase = useCallback((id, updates) => {
+    setAuditCases(prev => prev.map(c => 
       c.id === id ? { ...c, ...updates } : c
     ));
-  };
+  }, []);
 
-  const deleteAuditCase = (id) => {
-    setAuditCases(auditCases.filter(c => c.id !== id));
-    if (selectedCase?.id === id) {
-      setSelectedCase(null);
-    }
-  };
+  const deleteAuditCase = useCallback((id) => {
+    setAuditCases(prev => prev.filter(c => c.id !== id));
+    setSelectedCase(prev => prev?.id === id ? null : prev);
+  }, []);
 
   return (
     <div className="forensic-audit-app">

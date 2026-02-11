@@ -1,25 +1,27 @@
+import { useCallback } from 'react';
 import './AuditCaseList.css';
 
+const getCaseTypeLabel = (type) => {
+  const labels = {
+    'hardware-mismatch': '🖥️ Hardware Lifecycle Mismatch',
+    'ai-deception': '🤖 Algorithmic Deception',
+    'false-advertising': '📢 False Advertising',
+    'spec-fraud': '⚠️ Spec Fraud',
+    'other': '📌 Other'
+  };
+  return labels[type] || type;
+};
+
+const getSeverityClass = (severity) => {
+  return `severity-${severity}`;
+};
+
 function AuditCaseList({ cases, onSelectCase, onUpdateCase, onDeleteCase, selectedCase }) {
-  const getCaseTypeLabel = (type) => {
-    const labels = {
-      'hardware-mismatch': '🖥️ Hardware Lifecycle Mismatch',
-      'ai-deception': '🤖 Algorithmic Deception',
-      'false-advertising': '📢 False Advertising',
-      'spec-fraud': '⚠️ Spec Fraud',
-      'other': '📌 Other'
-    };
-    return labels[type] || type;
-  };
 
-  const getSeverityClass = (severity) => {
-    return `severity-${severity}`;
-  };
-
-  const toggleCaseStatus = (caseItem) => {
+  const toggleCaseStatus = useCallback((caseItem) => {
     const newStatus = caseItem.status === 'open' ? 'closed' : 'open';
     onUpdateCase(caseItem.id, { status: newStatus });
-  };
+  }, [onUpdateCase]);
 
   if (cases.length === 0) {
     return (

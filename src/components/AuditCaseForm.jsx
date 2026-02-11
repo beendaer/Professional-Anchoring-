@@ -2,24 +2,26 @@ import { useState } from 'react';
 import './AuditCaseForm.css';
 import { analyzeDeceptionPatterns } from '../utils/deceptionDetector';
 
+const DEFAULT_FORM_STATE = {
+  title: '',
+  caseType: 'hardware-mismatch',
+  description: '',
+  location: '',
+  retailer: '',
+  expectedSpecs: '',
+  actualSpecs: '',
+  failureTimeline: '',
+  aclSections: [],
+  evidence: '',
+  aiResponse: '',
+  deceptionPattern: 'none',
+  intentionality: 'undetermined',
+  severity: 'medium',
+  notes: ''
+};
+
 function AuditCaseForm({ onSubmit }) {
-  const [formData, setFormData] = useState({
-    title: '',
-    caseType: 'hardware-mismatch',
-    description: '',
-    location: '',
-    retailer: '',
-    expectedSpecs: '',
-    actualSpecs: '',
-    failureTimeline: '',
-    aclSections: [],
-    evidence: '',
-    aiResponse: '',
-    deceptionPattern: 'none',
-    intentionality: 'undetermined',
-    severity: 'medium',
-    notes: ''
-  });
+  const [formData, setFormData] = useState(DEFAULT_FORM_STATE);
 
   const [detectionResults, setDetectionResults] = useState(null);
 
@@ -86,6 +88,7 @@ function AuditCaseForm({ onSubmit }) {
       notes: ''
     });
     setDetectionResults(null);
+    setFormData(DEFAULT_FORM_STATE);
   };
 
   return (
